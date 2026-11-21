@@ -1,0 +1,4 @@
+server.log
+.agents/
+.claude/
+.DS_Store

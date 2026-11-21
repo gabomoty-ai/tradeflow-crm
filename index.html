@@ -1,0 +1,1337 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>TradeFlow CRM · Académie Pro Trader</title>
+  <link rel="stylesheet" href="styles.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;600;700&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+</head>
+<body class="theme-dark">
+  <!-- Top Application Bar -->
+  <header class="app-header">
+    <div class="header-left">
+      <div class="app-logo">
+        <div class="logo-icon">
+          <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+            <polyline points="22 7 13.5 15.5 8.5 10.5 2 17"></polyline>
+            <polyline points="16 7 22 7 22 13"></polyline>
+          </svg>
+        </div>
+        <div class="logo-text">
+          <span class="logo-brand">TradeFlow<span class="logo-badge">CRM</span></span>
+          <span class="logo-subtitle">Système d'Apprentissage Institutionnel</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Live CRM Top Metrics -->
+    <div class="header-kpis">
+      <div class="kpi-pill" title="Capital virtuel pour les exercices">
+        <span class="kpi-label">Capital Démo</span>
+        <span class="kpi-val" id="top-capital">100 000 $</span>
+      </div>
+      <div class="kpi-pill" title="Score de discipline globale basé sur vos exercices">
+        <span class="kpi-label">Discipline CRM</span>
+        <span class="kpi-val text-success" id="top-discipline">100%</span>
+      </div>
+      <div class="kpi-pill" title="Points d'expérience d'apprentissage">
+        <span class="kpi-label">Niveau Trader</span>
+        <span class="kpi-val text-primary" id="top-level">Niv. 1 · Novice</span>
+      </div>
+      <div class="xp-bar-container" title="Progression vers le niveau supérieur">
+        <div class="xp-bar-track">
+          <div class="xp-bar-fill" id="top-xp-bar" style="width: 15%;"></div>
+        </div>
+        <span class="xp-text" id="top-xp-text">150 / 1000 XP</span>
+      </div>
+    </div>
+
+    <div class="header-actions">
+      <button class="btn btn-sm btn-ghost" id="btn-toggle-sound" title="Activer/Désactiver les effets sonores de simulation">
+        <svg id="sound-icon-on" viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2">
+          <polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"></polygon>
+          <path d="M19.07 4.93a10 10 0 0 1 0 14.14M15.54 8.46a5 5 0 0 1 0 7.07"></path>
+        </svg>
+        <span id="sound-label">Audio FX</span>
+      </button>
+      <button class="btn btn-sm btn-primary" id="btn-quick-new-deal" title="Créer un nouveau trade dans le pipeline CRM">
+        <svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="12" y1="5" x2="12" y2="19"></line><line x1="5" y1="12" x2="19" y2="12"></line></svg>
+        <span>Nouveau Trade CRM</span>
+      </button>
+    </div>
+  </header>
+
+  <div class="app-container">
+    <!-- Sidebar CRM Navigation -->
+    <aside class="app-sidebar">
+      <div class="sidebar-section">
+        <div class="sidebar-title">NAVIGATION CRM</div>
+        <nav class="sidebar-nav">
+          <button class="nav-item active" data-tab="tab-overview">
+            <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="9"></rect><rect x="14" y="3" width="7" height="5"></rect><rect x="14" y="12" width="7" height="9"></rect><rect x="3" y="16" width="7" height="5"></rect></svg>
+            <span>Tableau de Bord</span>
+            <span class="nav-tag tag-primary">Global</span>
+          </button>
+          <button class="nav-item" data-tab="tab-pipeline">
+            <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 6h16M4 12h16M4 18h7"></path><rect x="15" y="15" width="6" height="6" rx="1"></rect></svg>
+            <span>Pipeline des Trades</span>
+            <span class="nav-badge" id="sidebar-pipeline-count">4</span>
+          </button>
+        </nav>
+      </div>
+
+      <div class="sidebar-section">
+        <div class="sidebar-title">MODULES DE SPÉCIFICITÉ</div>
+        <nav class="sidebar-nav">
+          <button class="nav-item" data-tab="tab-module-technical">
+            <div class="mod-icon mod-tech">
+              <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="20" x2="18" y2="10"></line><line x1="12" y1="20" x2="12" y2="4"></line><line x1="6" y1="20" x2="6" y2="14"></line></svg>
+            </div>
+            <div class="nav-item-content">
+              <span class="nav-label">1. Deal Screening</span>
+              <span class="nav-sub">Analyse Technique & Setups</span>
+            </div>
+            <span class="status-indicator" id="status-mod1"></span>
+          </button>
+
+          <button class="nav-item" data-tab="tab-module-risk">
+            <div class="mod-icon mod-risk">
+              <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path></svg>
+            </div>
+            <div class="nav-item-content">
+              <span class="nav-label">2. Pricing & Risk</span>
+              <span class="nav-sub">Gestion du Risque & Lots</span>
+            </div>
+            <span class="status-indicator" id="status-mod2"></span>
+          </button>
+
+          <button class="nav-item" data-tab="tab-module-orderflow">
+            <div class="mod-icon mod-flow">
+              <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="4" width="20" height="16" rx="2"></rect><path d="M6 8h4M6 12h8M6 16h6M16 12l2-2 2 2"></path></svg>
+            </div>
+            <div class="nav-item-content">
+              <span class="nav-label">3. Counterparties</span>
+              <span class="nav-sub">Carnet d'Ordres & DOM</span>
+            </div>
+            <span class="status-indicator" id="status-mod3"></span>
+          </button>
+
+          <button class="nav-item" data-tab="tab-module-macro">
+            <div class="mod-icon mod-macro">
+              <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"></circle><line x1="2" y1="12" x2="22" y2="12"></line><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"></path></svg>
+            </div>
+            <div class="nav-item-content">
+              <span class="nav-label">4. Macro Intelligence</span>
+              <span class="nav-sub">Fondamentaux & Calendrier</span>
+            </div>
+            <span class="status-indicator" id="status-mod4"></span>
+          </button>
+
+          <button class="nav-item" data-tab="tab-module-psychology">
+            <div class="mod-icon mod-psy">
+              <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2"><path d="M18.36 6.64a9 9 0 1 1-12.73 0"></path><line x1="12" y1="2" x2="12" y2="12"></line></svg>
+            </div>
+            <div class="nav-item-content">
+              <span class="nav-label">5. Audit Psychologique</span>
+              <span class="nav-sub">Discipline & Biais Cognitifs</span>
+            </div>
+            <span class="status-indicator" id="status-mod5"></span>
+          </button>
+        </nav>
+      </div>
+
+      <div class="sidebar-section">
+        <div class="sidebar-title">BILAN & AUDIT</div>
+        <nav class="sidebar-nav">
+          <button class="nav-item" data-tab="tab-certificate">
+            <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="8" r="7"></circle><polyline points="8.21 13.89 7 23 12 20 17 23 15.79 13.88"></polyline></svg>
+            <span>Certificat & Bilan</span>
+          </button>
+        </nav>
+      </div>
+
+      <!-- Quick Progress Card in Sidebar Footer -->
+      <div class="sidebar-footer">
+        <div class="progress-box">
+          <div class="progress-box-head">
+            <span>Score Académie</span>
+            <strong id="sidebar-total-score">0%</strong>
+          </div>
+          <div class="progress-bar-sm">
+            <div class="progress-bar-sm-fill" id="sidebar-progress-fill" style="width: 0%;"></div>
+          </div>
+          <p class="progress-sub" id="sidebar-progress-sub">0/5 modules validés</p>
+        </div>
+      </div>
+    </aside>
+
+    <!-- Main Content Area -->
+    <main class="app-main">
+      
+      <!-- TAB: OVERVIEW DASHBOARD -->
+      <section id="tab-overview" class="content-tab active">
+        <div class="tab-header">
+          <div>
+            <h1 class="page-title">Tableau de Bord CRM du Trader</h1>
+            <p class="page-desc">Gérez votre apprentissage du trading avec la rigueur d'un pipeline d'affaires institutionnel.</p>
+          </div>
+          <div class="header-badges">
+            <span class="badge badge-accent">Mode CRM Interactif</span>
+            <span class="badge badge-outline" id="date-display">Aujourd'hui</span>
+          </div>
+        </div>
+
+        <!-- Dashboard Stats Grid -->
+        <div class="stats-grid">
+          <div class="stat-card">
+            <div class="stat-icon-wrap bg-blue-subtle text-primary">
+              <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 12h-4l-3 9L9 3l-3 9H2"></path></svg>
+            </div>
+            <div class="stat-meta">
+              <span class="stat-title">Taux de Réussite Pipeline</span>
+              <div class="stat-value" id="dash-winrate">67%</div>
+              <span class="stat-sub text-success">↑ +5% de conformité</span>
+            </div>
+          </div>
+
+          <div class="stat-card">
+            <div class="stat-icon-wrap bg-green-subtle text-success">
+              <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2"><polyline points="23 6 13.5 15.5 8.5 10.5 1 18"></polyline><polyline points="17 6 23 6 23 12"></polyline></svg>
+            </div>
+            <div class="stat-meta">
+              <span class="stat-title">Facteur de Profit (PF)</span>
+              <div class="stat-value text-success" id="dash-profit-factor">2.45</div>
+              <span class="stat-sub">Ratio Gains / Pertes</span>
+            </div>
+          </div>
+
+          <div class="stat-card">
+            <div class="stat-icon-wrap bg-purple-subtle text-purple">
+              <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg>
+            </div>
+            <div class="stat-meta">
+              <span class="stat-title">Espérance Nette (R)</span>
+              <div class="stat-value" id="dash-expectancy">+1.82 R</div>
+              <span class="stat-sub">Par deal exécuté</span>
+            </div>
+          </div>
+
+          <div class="stat-card">
+            <div class="stat-icon-wrap bg-amber-subtle text-amber">
+              <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2v20M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"></path></svg>
+            </div>
+            <div class="stat-meta">
+              <span class="stat-title">Capital Actuel</span>
+              <div class="stat-value" id="dash-capital">104 250 $</div>
+              <span class="stat-sub text-success">+4.25% de gain cumulé</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- The CRM Concept Explanation Card -->
+        <div class="card crm-concept-banner">
+          <div class="banner-body">
+            <div class="banner-pill">La Méthode CRM appliquée au Trading</div>
+            <h2 class="banner-title">Pourquoi aborder le trading comme un CRM d'entreprise ?</h2>
+            <p class="banner-text">
+              Dans un CRM commercial, un commercial ne devine pas : il prospecte des <strong>leads qualifiés</strong>, 
+              applique une <strong>politique stricte de pricing & risque</strong>, négocie sur un <strong>marché d'acteurs réels</strong>, 
+              intègre le <strong>contexte économique</strong>, et audite ses <strong>incidents d'exécution</strong>.
+              Chaque trade est un <em>contrat d'affaires</em> que vous gérez de la qualification jusqu'au débrief post-mortem.
+            </p>
+            <div class="banner-steps-grid">
+              <div class="b-step">
+                <span class="b-num">1</span>
+                <strong>Lead Qualification</strong>
+                <span>Filtrer les meilleures figures techniques</span>
+              </div>
+              <div class="b-step">
+                <span class="b-num">2</span>
+                <strong>Risk Policy</strong>
+                <span>Calculer le dimensionnement sans risquer la ruine</span>
+              </div>
+              <div class="b-step">
+                <span class="b-num">3</span>
+                <strong>Market Counterparty</strong>
+                <span>Comprendre la liquidité du carnet d'ordres</span>
+              </div>
+              <div class="b-step">
+                <span class="b-num">4</span>
+                <strong>Macro Due Diligence</strong>
+                <span>Anticiper les catalyseurs économiques</span>
+              </div>
+              <div class="b-step">
+                <span class="b-num">5</span>
+                <strong>Behavioral Audit</strong>
+                <span>Éradiquer le FOMO & le revenge trading</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Module Progress Cards -->
+        <div class="section-title-wrap">
+          <h3 class="section-title">Parcours d'Apprentissage par Spécificité</h3>
+          <span class="section-desc">Complétez chaque module pratique pour débloquer votre certification.</span>
+        </div>
+
+        <div class="module-cards-grid">
+          <!-- Mod 1 -->
+          <div class="mod-card" onclick="switchTab('tab-module-technical')">
+            <div class="mod-card-header">
+              <span class="mod-badge badge-tech">Module 1 · Chartisme</span>
+              <span class="badge-xp">+250 XP</span>
+            </div>
+            <h4 class="mod-card-title">Deal Screening & Price Action</h4>
+            <p class="mod-card-desc">Maîtrisez la reconnaissance de motifs : chandeliers japonais, supports majeurs, breakouts avec volume et ratios R:R optimaux.</p>
+            <div class="mod-card-footer">
+              <span class="mod-exercise-tag">🎯 Exercice : Pattern Scanner Interactif</span>
+              <button class="btn btn-xs btn-outline">Ouvrir →</button>
+            </div>
+          </div>
+
+          <!-- Mod 2 -->
+          <div class="mod-card" onclick="switchTab('tab-module-risk')">
+            <div class="mod-card-header">
+              <span class="mod-badge badge-risk">Module 2 · Risque</span>
+              <span class="badge-xp">+250 XP</span>
+            </div>
+            <h4 class="mod-card-title">Pricing & Risk Management</h4>
+            <p class="mod-card-desc">Ne risquez jamais votre capital au hasard. Apprenez le calcul de taille de position au pip près et testez votre résistance au drawdown.</p>
+            <div class="mod-card-footer">
+              <span class="mod-exercise-tag">⚖️ Exercice : Simulateur Anti-Ruine</span>
+              <button class="btn btn-xs btn-outline">Ouvrir →</button>
+            </div>
+          </div>
+
+          <!-- Mod 3 -->
+          <div class="mod-card" onclick="switchTab('tab-module-orderflow')">
+            <div class="mod-card-header">
+              <span class="mod-badge badge-flow">Module 3 · Microstructure</span>
+              <span class="badge-xp">+300 XP</span>
+            </div>
+            <h4 class="mod-card-title">Counterparties & Carnet d'Ordres</h4>
+            <p class="mod-card-desc">Plongez dans le Depth of Market (DOM). Comprenez la différence entre ordres Market et Limit, le slippage et les chasses de liquidité.</p>
+            <div class="mod-card-footer">
+              <span class="mod-exercise-tag">📊 Exercice : DOM Simulator Live</span>
+              <button class="btn btn-xs btn-outline">Ouvrir →</button>
+            </div>
+          </div>
+
+          <!-- Mod 4 -->
+          <div class="mod-card" onclick="switchTab('tab-module-macro')">
+            <div class="mod-card-header">
+              <span class="mod-badge badge-macro">Module 4 · Fondamentaux</span>
+              <span class="badge-xp">+200 XP</span>
+            </div>
+            <h4 class="mod-card-title">Macro Intelligence & News</h4>
+            <p class="mod-card-desc">Naviguez les annonces NFP, réunions de la Fed et chiffres d'inflation. Apprenez à interpréter l'écart consensus / réel en quelques secondes.</p>
+            <div class="mod-card-footer">
+              <span class="mod-exercise-tag">🌍 Exercice : Défi Chrono NFP</span>
+              <button class="btn btn-xs btn-outline">Ouvrir →</button>
+            </div>
+          </div>
+
+          <!-- Mod 5 -->
+          <div class="mod-card" onclick="switchTab('tab-module-psychology')">
+            <div class="mod-card-header">
+              <span class="mod-badge badge-psy">Module 5 · Psychologie</span>
+              <span class="badge-xp">+250 XP</span>
+            </div>
+            <h4 class="mod-card-title">Audit Psychologique & Biais</h4>
+            <p class="mod-card-desc">Le mental représente 80% du succès. Neutralisez le FOMO, le revenge trading et l'effet de disposition grâce à des audits de décisions.</p>
+            <div class="mod-card-footer">
+              <span class="mod-exercise-tag">🧠 Exercice : Test de Sang-Froid</span>
+              <button class="btn btn-xs btn-outline">Ouvrir →</button>
+            </div>
+          </div>
+
+          <!-- Mod 6 -->
+          <div class="mod-card mod-card-highlight" onclick="switchTab('tab-pipeline')">
+            <div class="mod-card-header">
+              <span class="mod-badge badge-pipeline">Pipeline Live</span>
+              <span class="badge-xp">Pratique Continue</span>
+            </div>
+            <h4 class="mod-card-title">Le Pipeline Kanban du Trader</h4>
+            <p class="mod-card-desc">Appliquez toutes ces compétences dans un journal de trading interactif type CRM : de la qualification du deal au post-mortem.</p>
+            <div class="mod-card-footer">
+              <span class="mod-exercise-tag">💼 Simulateur Kanban Complet</span>
+              <button class="btn btn-xs btn-primary">Gérer le Pipeline →</button>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- TAB: MODULE 1 - ANALYSE TECHNIQUE (DEAL SCREENING) -->
+      <section id="tab-module-technical" class="content-tab">
+        <div class="tab-header">
+          <div>
+            <div class="breadcrumb">Modules CRM / Module 1</div>
+            <h1 class="page-title">Deal Screening : Analyse Technique & Chartisme</h1>
+            <p class="page-desc">Comme un CRM qualifie un prospect chaud, vous devez filtrer les configurations graphiques à haute probabilité mathématique.</p>
+          </div>
+          <div class="mod-score-box">
+            <span class="mod-score-label">Score Module 1</span>
+            <strong class="mod-score-val" id="score-mod1">0 / 250 XP</strong>
+          </div>
+        </div>
+
+        <div class="grid-2-col">
+          <!-- Théorie CRM -->
+          <div class="card">
+            <div class="card-header">
+              <h3 class="card-title">
+                <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"></path><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"></path></svg>
+                Les 3 Critères de Qualification Technique
+              </h3>
+            </div>
+            <div class="card-body">
+              <div class="concept-item">
+                <div class="concept-badge">A</div>
+                <div>
+                  <strong>Le Niveau Clé (Support / Résistance / Pivot)</strong>
+                  <p class="text-sm">Un niveau technique est une zone où de gros volumes institutionnels se sont échangés par le passé. Un deal ne se prend JAMAIS au milieu de nulle part : attendez un retest de niveau.</p>
+                </div>
+              </div>
+
+              <div class="concept-item">
+                <div class="concept-badge">B</div>
+                <div>
+                  <strong>Le Chandelier de Confirmation (Price Action)</strong>
+                  <p class="text-sm">Une mèche de rejet (Pinbar / Marteau) indique l'absorption de liquidité par les acheteurs. Un avalement haussier (Bullish Engulfing) confirme la prise de contrôle.</p>
+                </div>
+              </div>
+
+              <div class="concept-item">
+                <div class="concept-badge">C</div>
+                <div>
+                  <strong>L'Espace Vital (Risk-to-Reward ≥ 1:2)</strong>
+                  <p class="text-sm">Si votre stop loss est à 20 pips, votre premier obstacle (résistance suivante) doit se trouver à au moins 40 pips. En deçà, le deal est disqualifié.</p>
+                </div>
+              </div>
+
+              <div class="alert-box alert-info">
+                <strong>Règle CRM :</strong> "Pas de confirmation = Pas de deal". Un trader rentable refuse 80% des graphiques qu'il regarde pour ne garder que l'élite de ses opportunités.
+              </div>
+            </div>
+          </div>
+
+          <!-- Quick Quiz Théorie -->
+          <div class="card">
+            <div class="card-header">
+              <h3 class="card-title">
+                <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"></circle><path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"></path><line x1="12" y1="17" x2="12.01" y2="17"></line></svg>
+                Diagnostic Éclair : Figure de Breakout
+              </h3>
+              <span class="badge badge-accent">Quiz d'Échauffement</span>
+            </div>
+            <div class="card-body" id="quiz-tech-container">
+              <p class="text-sm mb-3">Le cours de l'EUR/USD compresse depuis 4 heures sous une résistance majeure à 1.0850. Une longue bougie verte casse ce niveau avec un volume 3x supérieur à la moyenne. Quelle est la démarche CRM optimale ?</p>
+              
+              <div class="quiz-options">
+                <button class="quiz-btn" onclick="answerTechQuiz(0)">A. Acheter immédiatement au marché avec tout le capital disponible.</button>
+                <button class="quiz-btn" onclick="answerTechQuiz(1)">B. Vendre à contre-tendance car le marché est supposé être suracheté.</button>
+                <button class="quiz-btn" onclick="answerTechQuiz(2)">C. Attendre un pullback (retest) sur le niveau 1.0850 devenu support, avec signal de rejet.</button>
+                <button class="quiz-btn" onclick="answerTechQuiz(3)">D. Fermer la plateforme et attendre le lendemain.</button>
+              </div>
+              <div id="quiz-tech-feedback" class="quiz-feedback hidden"></div>
+            </div>
+          </div>
+        </div>
+
+        <!-- EXERCICE PRATIQUE 1 : PATTERN SCANNER & TRADE ENTRY -->
+        <div class="card mt-4">
+          <div class="card-header">
+            <div>
+              <h3 class="card-title">
+                <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"></circle><circle cx="12" cy="12" r="6"></circle><circle cx="12" cy="12" r="2"></circle></svg>
+                Exercice Pratique : Le Scanner de Breakout Interactif
+              </h3>
+              <p class="text-sm text-muted">Analysez le graphique ci-dessous, repérez la figure de compression et lancez le trade au timing optimal.</p>
+            </div>
+            <div class="chart-controls">
+              <button class="btn btn-sm btn-ghost" onclick="resetTechChart()">Recharger un Scénario</button>
+              <button class="btn btn-sm btn-success" id="btn-execute-tech-trade" onclick="triggerTechSimulation()">
+                <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.5"><polygon points="5 3 19 12 5 21 5 3"></polygon></svg>
+                Exécuter la Simulation Live
+              </button>
+            </div>
+          </div>
+          <div class="card-body">
+            <!-- Interactive Canvas Chart -->
+            <div class="chart-container">
+              <canvas id="canvas-technical" width="900" height="340"></canvas>
+              <div class="chart-overlay-info">
+                <div class="overlay-badge" id="chart-asset-badge">Actif : EUR/USD (15 min)</div>
+                <div class="overlay-metric">Dernier Prix : <strong id="chart-last-price">1.0842</strong></div>
+                <div class="overlay-metric">Setup détecté : <span class="text-primary font-bold" id="chart-pattern-name">Triangle Ascendant & Résistance</span></div>
+              </div>
+            </div>
+
+            <!-- Trade Settings & Decision Bar -->
+            <div class="trade-decision-bar">
+              <div class="decision-group">
+                <label>Type d'Ordre</label>
+                <div class="btn-group-toggle">
+                  <button class="btn btn-sm active" id="btn-dir-buy" onclick="setTechDirection('BUY')">Achat (Long)</button>
+                  <button class="btn btn-sm" id="btn-dir-sell" onclick="setTechDirection('SELL')">Vente (Short)</button>
+                </div>
+              </div>
+
+              <div class="decision-group">
+                <label>Stop Loss (Protection)</label>
+                <div class="input-with-unit">
+                  <input type="number" id="input-tech-sl" value="1.0820" step="0.0005" onchange="updateTechLevels()">
+                  <span>$</span>
+                </div>
+              </div>
+
+              <div class="decision-group">
+                <label>Take Profit (Objectif)</label>
+                <div class="input-with-unit">
+                  <input type="number" id="input-tech-tp" value="1.0910" step="0.0005" onchange="updateTechLevels()">
+                  <span>$</span>
+                </div>
+              </div>
+
+              <div class="decision-group">
+                <label>Ratio Risque / Rendement (R:R)</label>
+                <div class="rr-display" id="display-tech-rr">1 : 3.09</div>
+              </div>
+
+              <div class="decision-group decision-cta">
+                <button class="btn btn-primary" onclick="triggerTechSimulation()">Tester la Démarche</button>
+              </div>
+            </div>
+
+            <div id="tech-result-banner" class="alert-box hidden mt-3"></div>
+          </div>
+        </div>
+      </section>
+
+      <!-- TAB: MODULE 2 - GESTION DU RISQUE (PRICING & SIZING) -->
+      <section id="tab-module-risk" class="content-tab">
+        <div class="tab-header">
+          <div>
+            <div class="breadcrumb">Modules CRM / Module 2</div>
+            <h1 class="page-title">Pricing & Risk : La Science du Dimensionnement</h1>
+            <p class="page-desc">En finance, le risque ne s'évite pas : il se tarifie et se quantifie rigoureusement pour garantir la survie à long terme.</p>
+          </div>
+          <div class="mod-score-box">
+            <span class="mod-score-label">Score Module 2</span>
+            <strong class="mod-score-val" id="score-mod2">0 / 250 XP</strong>
+          </div>
+        </div>
+
+        <div class="grid-2-col">
+          <!-- Calculateur de Lots CRM -->
+          <div class="card">
+            <div class="card-header">
+              <h3 class="card-title">
+                <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2"><rect x="4" y="2" width="16" height="20" rx="2"></rect><line x1="8" y1="6" x2="16" y2="6"></line><line x1="16" y1="14" x2="16" y2="18"></line><path d="M16 10h.01M12 10h.01M8 10h.01M12 14h.01M8 14h.01M12 18h.01M8 18h.01"></path></svg>
+                Calculateur de Taille de Position au Pip Près
+              </h3>
+            </div>
+            <div class="card-body">
+              <div class="calc-row">
+                <label>Capital de Compte ($)</label>
+                <input type="number" id="risk-capital" value="100000" step="5000" oninput="calculatePositionSize()">
+              </div>
+
+              <div class="calc-row">
+                <div class="calc-label-wrap">
+                  <label>Risque Maximal par Trade (%)</label>
+                  <span class="calc-val-preview" id="risk-percent-val">1.0%</span>
+                </div>
+                <input type="range" id="risk-percent" min="0.5" max="5.0" step="0.5" value="1.0" oninput="calculatePositionSize()">
+                <div class="range-labels">
+                  <span>0.5% (Conservateur)</span>
+                  <span class="text-primary font-bold">1-2% (Standard Pro)</span>
+                  <span class="text-danger font-bold">5% (Zone Dangereuse)</span>
+                </div>
+              </div>
+
+              <div class="calc-row">
+                <label>Distance du Stop Loss (en Pips)</label>
+                <input type="number" id="risk-sl-pips" value="25" min="5" max="200" oninput="calculatePositionSize()">
+              </div>
+
+              <div class="calc-results-box">
+                <div class="res-item">
+                  <span>Montant Maximal à Risquer</span>
+                  <strong class="text-danger" id="risk-cash-loss">1 000 $</strong>
+                </div>
+                <div class="res-item">
+                  <span>Taille de Position Recommandée</span>
+                  <strong class="text-primary text-xl" id="risk-lot-size">4.00 Lots</strong>
+                </div>
+                <div class="res-item">
+                  <span>Valeur du Pip par Lot Standard</span>
+                  <span id="risk-pip-value">10.00 $ / pip</span>
+                </div>
+              </div>
+
+              <p class="text-xs text-muted mt-2">
+                💡 <em>Formule universelle : Taille en Lots = (Capital × % Risque) ÷ (Distance Stop × Valeur du Pip).</em>
+              </p>
+            </div>
+          </div>
+
+          <!-- Règle de l'Espérance Mathématique -->
+          <div class="card">
+            <div class="card-header">
+              <h3 class="card-title">
+                <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"></circle><path d="M16 8h-6a2 2 0 1 0 0 4h4a2 2 0 1 1 0 4H8"></path><line x1="12" y1="2" x2="12" y2="4"></line><line x1="12" y1="20" x2="12" y2="22"></line></svg>
+                Le Paradoxe du Taux de Réussite (Win Rate vs R:R)
+              </h3>
+            </div>
+            <div class="card-body">
+              <p class="text-sm mb-3">La plupart des débutants recherchent 90% de trades gagnants. Les traders professionnels savent qu'on peut être multi-millionnaire avec <strong>seulement 40% de réussite</strong> si le Risk/Reward est de 1:3.</p>
+
+              <div class="table-container">
+                <table class="crm-table">
+                  <thead>
+                    <tr>
+                      <th>Win Rate</th>
+                      <th>Ratio R:R</th>
+                      <th>Espérance (100 trades)</th>
+                      <th>Verdict</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <td>70%</td>
+                      <td>1 : 0.5</td>
+                      <td class="text-danger">+5 R (Faible)</td>
+                      <td><span class="badge badge-warning">Fragile</span></td>
+                    </tr>
+                    <tr>
+                      <td>50%</td>
+                      <td>1 : 1.0</td>
+                      <td class="text-muted">0 R (Neutre)</td>
+                      <td><span class="badge badge-outline">Point Mort</span></td>
+                    </tr>
+                    <tr class="highlight-row">
+                      <td>40%</td>
+                      <td>1 : 3.0</td>
+                      <td class="text-success font-bold">+60 R (Excellent !)</td>
+                      <td><span class="badge badge-success">Pro Institutionnel</span></td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+
+              <div class="alert-box alert-success mt-3">
+                <strong>Loi mathématique :</strong> Espérance E = (WinRate × Gain Moyen) - (LossRate × Perte Moyenne). Ne coupez jamais vos gains pour flatter votre égo de taux de réussite.
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- EXERCICE PRATIQUE 2 : CRASH TEST DU DRAWDOWN (MONTE CARLO) -->
+        <div class="card mt-4">
+          <div class="card-header">
+            <div>
+              <h3 class="card-title">
+                <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path><polyline points="22 4 12 14.01 9 11.01"></polyline></svg>
+                Exercice Pratique : Le Crash Test du Drawdown (1% vs 10% de Risque)
+              </h3>
+              <p class="text-sm text-muted">Simulez une série inévitable de 5 pertes consécutives et observez l'impact direct sur la survie du compte de trading.</p>
+            </div>
+            <button class="btn btn-sm btn-primary" onclick="runDrawdownCrashTest()">
+              <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2"><polygon points="5 3 19 12 5 21 5 3"></polygon></svg>
+              Lancer la Simulation (20 Trades)
+            </button>
+          </div>
+          <div class="card-body">
+            <div class="drawdown-grid">
+              <div>
+                <canvas id="canvas-equity" width="600" height="260"></canvas>
+              </div>
+              <div class="drawdown-stats">
+                <div class="comparison-card comp-safe">
+                  <div class="comp-title">Stratégie A : Risque Discipliné (1% par trade)</div>
+                  <div class="comp-val text-success" id="equity-safe-end">100 000 $</div>
+                  <div class="comp-sub" id="equity-safe-drawdown">Drawdown Max : -4.9%</div>
+                  <p class="text-xs text-muted mt-2">Le capital reste intact, prêt à profiter de la prochaine vague d'opportunités.</p>
+                </div>
+
+                <div class="comparison-card comp-danger">
+                  <div class="comp-title">Stratégie B : Sur-Levier Inconscient (10% par trade)</div>
+                  <div class="comp-val text-danger" id="equity-risky-end">100 000 $</div>
+                  <div class="comp-sub text-danger" id="equity-risky-drawdown">Drawdown Max : -41.0%</div>
+                  <p class="text-xs text-danger mt-2">⚠️ Une perte de 40% nécessite un gain de +67% juste pour revenir à l'équilibre !</p>
+                </div>
+              </div>
+            </div>
+
+            <div id="drawdown-feedback" class="alert-box alert-info mt-3">
+              Cliquez sur <strong>"Lancer la Simulation"</strong> pour générer 20 trades avec un taux de réussite réaliste de 50% et observer les deux courbes d'équité en temps réel.
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- TAB: MODULE 3 - CARNET D'ORDRES & ORDER FLOW (COUNTERPARTIES) -->
+      <section id="tab-module-orderflow" class="content-tab">
+        <div class="tab-header">
+          <div>
+            <div class="breadcrumb">Modules CRM / Module 3</div>
+            <h1 class="page-title">Counterparties : Carnet d'Ordres & Microstructure</h1>
+            <p class="page-desc">Dans un CRM, vous négociez avec des contreparties réelles. Sur les marchés, chaque achat nécessite un vendeur en face.</p>
+          </div>
+          <div class="mod-score-box">
+            <span class="mod-score-label">Score Module 3</span>
+            <strong class="mod-score-val" id="score-mod3">0 / 300 XP</strong>
+          </div>
+        </div>
+
+        <div class="grid-2-col">
+          <!-- Théorie Microstructure -->
+          <div class="card">
+            <div class="card-header">
+              <h3 class="card-title">
+                <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect><line x1="3" y1="9" x2="21" y2="9"></line><line x1="9" y1="21" x2="9" y2="9"></line></svg>
+                Ordres au Marché vs Ordres Limites
+              </h3>
+            </div>
+            <div class="card-body">
+              <div class="concept-item">
+                <div class="concept-badge bg-green">1</div>
+                <div>
+                  <strong>Ordre au Marché (Market Order) = Fournisseur d'Immédiateté</strong>
+                  <p class="text-sm">Vous voulez entrer TOUT DE SUITE. Vous payez le spread et vous consommez la liquidité disponible. Si la taille est trop grande, vous subissez du <em>slippage</em> (glissement de prix).</p>
+                </div>
+              </div>
+
+              <div class="concept-item">
+                <div class="concept-badge bg-blue">2</div>
+                <div>
+                  <strong>Ordre Limite (Limit Order) = Fournisseur de Liquidité</strong>
+                  <p class="text-sm">Vous fixez votre prix exact dans le carnet et vous attendez qu'une contrepartie vienne vous exécuter. Aucun slippage négatif, mais risque de ne jamais être servi.</p>
+                </div>
+              </div>
+
+              <div class="concept-item">
+                <div class="concept-badge bg-purple">3</div>
+                <div>
+                  <strong>Chasses de Liquidités (Smart Money Concepts)</strong>
+                  <p class="text-sm">Les grands fonds institutionnels ont besoin de millions pour se positionner. Ils poussent délibérément le cours au-delà des plus hauts récents pour déclencher les Stop Loss (qui sont des ordres d'achat forcés) afin de leur vendre leurs positions !</p>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Micro Quiz DOM -->
+          <div class="card">
+            <div class="card-header">
+              <h3 class="card-title">
+                <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"></circle><line x1="12" y1="8" x2="12" y2="12"></line><line x1="12" y1="16" x2="12.01" y2="16"></line></svg>
+                Défi Microstructure : Le Piège de l'Illiquidité
+              </h3>
+            </div>
+            <div class="card-body">
+              <p class="text-sm mb-3">Vous souhaitez acheter 50 lots sur un actif à faible liquidité. Le meilleur vendeur (Ask) ne propose que 10 lots à 100.00 $. Les niveaux suivants proposent 15 lots à 100.25 $ et 25 lots à 100.80 $. Si vous envoyez un ordre Market, que se passe-t-il ?</p>
+              
+              <div class="quiz-options">
+                <button class="quiz-btn" onclick="answerDomQuiz(0)">A. Vos 50 lots seront exécutés magiquement au prix de 100.00 $.</button>
+                <button class="quiz-btn" onclick="answerDomQuiz(1)">B. Votre ordre est rejeté par la bourse.</button>
+                <button class="quiz-btn" onclick="answerDomQuiz(2)">C. Vos 50 lots consomment les 3 niveaux, résultant en un prix moyen élevé de ~100.47 $ (Slippage massif).</button>
+              </div>
+              <div id="quiz-dom-feedback" class="quiz-feedback hidden"></div>
+            </div>
+          </div>
+        </div>
+
+        <!-- EXERCICE PRATIQUE 3 : SIMULATEUR LIVE DU CARNET D'ORDRES (DOM LADDER) -->
+        <div class="card mt-4">
+          <div class="card-header">
+            <div>
+              <h3 class="card-title">
+                <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2v20M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"></path></svg>
+                Exercice Pratique : Le Simulateur DOM (Depth of Market) Interactif
+              </h3>
+              <p class="text-sm text-muted">Exécutez des ordres réels dans le carnet d'ordres animé et observez l'impact direct sur la profondeur du marché.</p>
+            </div>
+            <div class="flex gap-2">
+              <button class="btn btn-sm btn-ghost" onclick="resetDomLadder()">Réinitialiser le Carnet</button>
+            </div>
+          </div>
+          <div class="card-body">
+            <div class="dom-simulator-layout">
+              <!-- Le Carnet Visuel -->
+              <div class="dom-ladder-wrapper">
+                <div class="dom-ladder-header">
+                  <span>Volume Vendeurs (Ask)</span>
+                  <span>Prix ($)</span>
+                  <span>Volume Acheteurs (Bid)</span>
+                </div>
+                <div class="dom-ladder-body" id="dom-ladder-rows">
+                  <!-- Dynamically populated via JS -->
+                </div>
+              </div>
+
+              <!-- Panneau de Passage d'Ordre DOM -->
+              <div class="dom-control-panel">
+                <h4 class="font-bold mb-2">Exécution d'Ordre Institutionnel</h4>
+                <p class="text-xs text-muted mb-3">Testez l'impact d'un ordre d'achat de gros volume sur la profondeur du carnet.</p>
+
+                <div class="calc-row">
+                  <label>Volume à Acheter (Contrats / Lots)</label>
+                  <input type="number" id="dom-order-volume" value="45" min="5" max="150" step="5">
+                </div>
+
+                <div class="flex flex-col gap-2 mt-4">
+                  <button class="btn btn-danger" onclick="executeDomOrder('MARKET_BUY')">
+                    <strong>Acheter au MARCHÉ (Consommer le Carnet)</strong>
+                    <span class="text-xs">Exécution garantie, prix variable (Slippage)</span>
+                  </button>
+
+                  <button class="btn btn-outline" onclick="executeDomOrder('LIMIT_BUY')">
+                    <strong>Placer un Ordre LIMITE (Apporter de la Liquidité)</strong>
+                    <span class="text-xs">Exécution au meilleur Bid, sans slippage</span>
+                  </button>
+                </div>
+
+                <div id="dom-execution-report" class="alert-box alert-info mt-4">
+                  <strong>État :</strong> En attente d'exécution. Choisissez un volume et un type d'ordre pour observer la consommation des contreparties.
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- TAB: MODULE 4 - MACRO INTELLIGENCE & NEWS (CALENDRIER) -->
+      <section id="tab-module-macro" class="content-tab">
+        <div class="tab-header">
+          <div>
+            <div class="breadcrumb">Modules CRM / Module 4</div>
+            <h1 class="page-title">Macro Intelligence : Fondamentaux & Événements</h1>
+            <p class="page-desc">Tout comme un CRM surveille les annonces de rachat ou la santé économique de ses comptes, le trader doit anticiper les chocs macroéconomiques.</p>
+          </div>
+          <div class="mod-score-box">
+            <span class="mod-score-label">Score Module 4</span>
+            <strong class="mod-score-val" id="score-mod4">0 / 200 XP</strong>
+          </div>
+        </div>
+
+        <div class="grid-2-col">
+          <!-- Théorie Macro -->
+          <div class="card">
+            <div class="card-header">
+              <h3 class="card-title">
+                <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 14 14"></polyline></svg>
+                Les 3 Géants du Calendrier Économique
+              </h3>
+            </div>
+            <div class="card-body">
+              <div class="macro-event-item">
+                <div class="macro-badge text-danger">Élevé</div>
+                <div>
+                  <strong>NFP (Non-Farm Payrolls - Emploi US)</strong>
+                  <p class="text-sm">Publié le 1er vendredi du mois. Plus de créations d'emplois = économie forte = possible hausse des taux Fed = Dollar (USD) haussier à court terme.</p>
+                </div>
+              </div>
+
+              <div class="macro-event-item">
+                <div class="macro-badge text-danger">Élevé</div>
+                <div>
+                  <strong>IPC / CPI (Indice des Prix à la Consommation - Inflation)</strong>
+                  <p class="text-sm">Une inflation plus forte que prévu force les banques centrales à rester "Hawkish" (taux directeurs élevés), pesant sur les actions et l'Or.</p>
+                </div>
+              </div>
+
+              <div class="macro-event-item">
+                <div class="macro-badge text-danger">Élevé</div>
+                <div>
+                  <strong>Décision de Taux de la Réserve Fédérale (FOMC)</strong>
+                  <p class="text-sm">Le moteur ultime des flux de capitaux mondiaux. Une baisse de taux alimente la liquidité et soutient les actifs à risque (Nasdaq, Bitcoin).</p>
+                </div>
+              </div>
+
+              <div class="alert-box alert-warning mt-3">
+                <strong>Règle d'or CRM :</strong> Ne tentez jamais de deviner une annonce 30 secondes avant sa sortie au casino. Attendez que la première vague d'emballement émotionnel retombe pour trader la vraie direction institutionnelle.
+              </div>
+            </div>
+          </div>
+
+          <!-- Corrélations Inter-Marchés -->
+          <div class="card">
+            <div class="card-header">
+              <h3 class="card-title">
+                <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2"><path d="M16 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path><circle cx="8.5" cy="7.5" r="4"></circle><line x1="20" y1="8" x2="20" y2="14"></line><line x1="23" y1="11" x2="17" y2="11"></line></svg>
+                Corrélations Macro Clés
+              </h3>
+            </div>
+            <div class="card-body">
+              <div class="corr-grid">
+                <div class="corr-box">
+                  <span class="corr-pair">USD (Dollar) ⟷ Or (XAU/USD)</span>
+                  <span class="corr-val text-danger">Corrélation Inverse Forte (-0.85)</span>
+                  <p class="text-xs text-muted">Quand le Dollar s'envole, l'Or libellé en USD devient plus cher pour les acheteurs internationaux et a tendance à baisser.</p>
+                </div>
+                <div class="corr-box">
+                  <span class="corr-pair">Rendement US 10 Ans ⟷ Nasdaq 100</span>
+                  <span class="corr-val text-danger">Corrélation Inverse (-0.75)</span>
+                  <p class="text-xs text-muted">Des taux sans risque élevés réduisent la valorisation actuelle des bénéfices futurs des entreprises technologiques à forte croissance.</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- EXERCICE PRATIQUE 4 : CHRONO FLASH NFP -->
+        <div class="card mt-4">
+          <div class="card-header">
+            <div>
+              <h3 class="card-title">
+                <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"></polygon></svg>
+                Exercice Pratique : Le Défi Chrono Flash NFP
+              </h3>
+              <p class="text-sm text-muted">Une alerte macroéconomique majeure vient de tomber ! Vous avez 15 secondes pour comparer le chiffre au consensus et déterminer l'impact sur le Dollar.</p>
+            </div>
+            <button class="btn btn-sm btn-primary" id="btn-start-macro-sim" onclick="startMacroChronoChallenge()">
+              Lancer le Flash Info NFP
+            </button>
+          </div>
+          <div class="card-body">
+            <div class="macro-sim-container">
+              <!-- Timer visual -->
+              <div class="macro-timer-box">
+                <span>Temps Restant :</span>
+                <strong id="macro-countdown" class="text-xl text-primary">15s</strong>
+              </div>
+
+              <!-- Breaking news flash card -->
+              <div class="news-flash-card" id="news-flash-display">
+                <div class="news-flash-tag">COMMUNIQUÉ DE PRESSE US BUREAU OF LABOR STATISTICS</div>
+                <h3 class="news-headline" id="news-title">En attente du lancement de la simulation...</h3>
+                <div class="news-data-grid" id="news-data-box">
+                  <div class="data-block">
+                    <span class="d-label">Chiffre Attendu (Consensus)</span>
+                    <strong class="d-val" id="nfp-forecast">180 000</strong>
+                  </div>
+                  <div class="data-block">
+                    <span class="d-label">Chiffre Précédent</span>
+                    <strong class="d-val" id="nfp-prev">165 000</strong>
+                  </div>
+                  <div class="data-block highlight-data">
+                    <span class="d-label">RÉSULTAT RÉEL PUBLIÉ</span>
+                    <strong class="d-val text-success" id="nfp-actual">--</strong>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Decision Buttons -->
+              <div class="macro-decision-actions" id="macro-actions-group">
+                <button class="btn btn-lg btn-success" disabled id="btn-macro-bull" onclick="decideMacro('BULLISH')">
+                  🟢 ACHAT DOLLAR (Hausse anticipée)
+                </button>
+                <button class="btn btn-lg btn-danger" disabled id="btn-macro-bear" onclick="decideMacro('BEARISH')">
+                  🔴 VENTE DOLLAR (Baisse anticipée)
+                </button>
+              </div>
+
+              <div id="macro-result-feedback" class="alert-box alert-info hidden mt-3"></div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- TAB: MODULE 5 - AUDIT PSYCHOLOGIQUE & BIAIS COGNITIFS -->
+      <section id="tab-module-psychology" class="content-tab">
+        <div class="tab-header">
+          <div>
+            <div class="breadcrumb">Modules CRM / Module 5</div>
+            <h1 class="page-title">Audit Psychologique & Maîtrise des Biais</h1>
+            <p class="page-desc">Un commercial qui cède à la panique détruit la relation client. En trading, vos pires ennemis ne sont pas les algorithmes, mais vos propres réflexes cognitifs.</p>
+          </div>
+          <div class="mod-score-box">
+            <span class="mod-score-label">Score Module 5</span>
+            <strong class="mod-score-val" id="score-mod5">0 / 250 XP</strong>
+          </div>
+        </div>
+
+        <div class="grid-2-col">
+          <!-- Les 4 Biais Tueurs de Compte -->
+          <div class="card">
+            <div class="card-header">
+              <h3 class="card-title">
+                <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"></path><line x1="12" y1="9" x2="12" y2="13"></line><line x1="12" y1="17" x2="12.01" y2="17"></line></svg>
+                Les 4 Biais Mortels du Trader
+              </h3>
+            </div>
+            <div class="card-body">
+              <div class="bias-item">
+                <span class="bias-num">1</span>
+                <div>
+                  <strong>Le FOMO (Fear Of Missing Out)</strong>
+                  <p class="text-sm">Vous voyez une immense bougie verte déjà partie sans vous. Pris de panique, vous achetez tout en haut juste avant le retracement inévitable.</p>
+                </div>
+              </div>
+
+              <div class="bias-item">
+                <span class="bias-num">2</span>
+                <div>
+                  <strong>Le Revenge Trading</strong>
+                  <p class="text-sm">Après une perte frustrante, votre égo refuse d'avoir tort. Vous doublez la taille du trade suivant pour "vous refaire" immédiatement, provoquant l'explosion du compte.</p>
+                </div>
+              </div>
+
+              <div class="bias-item">
+                <span class="bias-num">3</span>
+                <div>
+                  <strong>L'Effet de Disposition</strong>
+                  <p class="text-sm">Vous coupez vos gains à +10 $ de peur de les voir disparaître, mais vous laissez courir une perte de -300 $ dans l'espoir irrationnel que le marché revienne.</p>
+                </div>
+              </div>
+
+              <div class="bias-item">
+                <span class="bias-num">4</span>
+                <div>
+                  <strong>Le Biais du Coût Irrécupérable</strong>
+                  <p class="text-sm">Refuser de couper un trade invalide parce qu'on a déjà "trop investi" en temps et en argent dans l'analyse de cette position.</p>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Jauge de Discipline CRM -->
+          <div class="card">
+            <div class="card-header">
+              <h3 class="card-title">
+                <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 12h-4l-3 9L9 3l-3 9H2"></path></svg>
+                Votre Capital Émotionnel en Direct
+              </h3>
+            </div>
+            <div class="card-body">
+              <p class="text-sm mb-3">La gestion du stress en trading se mesure comme une réserve de batterie. Chaque entorse à la discipline vide votre capital émotionnel.</p>
+
+              <div class="emotional-gauge-wrap">
+                <div class="gauge-head">
+                  <span>Résistance Mentale</span>
+                  <strong class="text-success" id="psy-gauge-score">100 / 100</strong>
+                </div>
+                <div class="gauge-track">
+                  <div class="gauge-fill" id="psy-gauge-fill" style="width: 100%;"></div>
+                </div>
+                <div class="gauge-status-text" id="psy-gauge-status">Statut : Esprit lucide, discipline institutionnelle optimale.</div>
+              </div>
+
+              <div class="quote-box mt-4">
+                <em>"Les marchés sont un mécanisme qui transfère l'argent des personnes impatientes vers les personnes patientes."</em>
+                <span class="quote-author">— Warren Buffett</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- EXERCICE PRATIQUE 5 : SIMULATEUR DE SANG-FROID (ARBRE DE DÉCISION) -->
+        <div class="card mt-4">
+          <div class="card-header">
+            <div>
+              <h3 class="card-title">
+                <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path></svg>
+                Exercice Pratique : Le Simulateur de Sang-Froid (Stress Test CRM)
+              </h3>
+              <p class="text-sm text-muted">Faites face à une série de situations réelles à haute tension psychologique. Vos choix impacteront directement votre capital et votre discipline.</p>
+            </div>
+            <button class="btn btn-sm btn-ghost" onclick="restartPsySimulator()">Recommencer le Test</button>
+          </div>
+          <div class="card-body">
+            <div class="scenario-box" id="psy-scenario-box">
+              <div class="scenario-step-indicator" id="psy-step-count">Situation 1 sur 3</div>
+              <h3 class="scenario-title" id="psy-scenario-title">Le Choc du Stop Touché à 1 Pip Près</h3>
+              <p class="scenario-desc" id="psy-scenario-text">
+                Vous aviez placé un trade parfait sur l'EUR/USD. Une mèche vicieuse vient toucher votre Stop Loss d'exactement 1.2 pip... avant que le cours ne parte en flèche vers votre objectif de Take Profit initial ! Que faites-vous ?
+              </p>
+
+              <div class="scenario-choices" id="psy-scenario-buttons">
+                <!-- Injected via JS -->
+              </div>
+
+              <div id="psy-scenario-feedback" class="alert-box alert-info hidden mt-3"></div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- TAB: MODULE 6 - LE PIPELINE CRM DU TRADER (KANBAN & JOURNAL) -->
+      <section id="tab-pipeline" class="content-tab">
+        <div class="tab-header">
+          <div>
+            <div class="breadcrumb">Outil Opérationnel / CRM Journal</div>
+            <h1 class="page-title">Pipeline des Trades : Le Journal Opérationnel</h1>
+            <p class="page-desc">Suivez chaque trade comme un deal commercial à travers ses 5 phases : Détection, Qualification, Ordre En Cours, Won et Lost.</p>
+          </div>
+          <div class="header-actions">
+            <button class="btn btn-sm btn-ghost" onclick="resetPipelineToDefault()">Réinitialiser les Exemples</button>
+            <button class="btn btn-sm btn-primary" onclick="openNewDealModal()">
+              <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="12" y1="5" x2="12" y2="19"></line><line x1="5" y1="12" x2="19" y2="12"></line></svg>
+              Ajouter un Trade au Pipeline
+            </button>
+          </div>
+        </div>
+
+        <!-- Kanban Board Container -->
+        <div class="kanban-board">
+          <!-- Col 1: Prospection -->
+          <div class="kanban-column" id="col-prospect">
+            <div class="column-header">
+              <div class="col-title-wrap">
+                <span class="col-dot bg-blue"></span>
+                <span class="col-name">1. Détection & Idée</span>
+              </div>
+              <span class="col-count" id="count-prospect">1</span>
+            </div>
+            <div class="column-cards" id="cards-prospect" ondragover="allowDrop(event)" ondrop="handleDrop(event, 'prospect')">
+              <!-- Cards injected via JS -->
+            </div>
+          </div>
+
+          <!-- Col 2: Qualification -->
+          <div class="kanban-column" id="col-qualified">
+            <div class="column-header">
+              <div class="col-title-wrap">
+                <span class="col-dot bg-amber"></span>
+                <span class="col-name">2. Plan & Risque Validé</span>
+              </div>
+              <span class="col-count" id="count-qualified">1</span>
+            </div>
+            <div class="column-cards" id="cards-qualified" ondragover="allowDrop(event)" ondrop="handleDrop(event, 'qualified')">
+              <!-- Cards injected via JS -->
+            </div>
+          </div>
+
+          <!-- Col 3: En Cours -->
+          <div class="kanban-column" id="col-active">
+            <div class="column-header">
+              <div class="col-title-wrap">
+                <span class="col-dot bg-purple"></span>
+                <span class="col-name">3. Position Active (Live)</span>
+              </div>
+              <span class="col-count" id="count-active">1</span>
+            </div>
+            <div class="column-cards" id="cards-active" ondragover="allowDrop(event)" ondrop="handleDrop(event, 'active')">
+              <!-- Cards injected via JS -->
+            </div>
+          </div>
+
+          <!-- Col 4: Gagné (Won) -->
+          <div class="kanban-column" id="col-won">
+            <div class="column-header">
+              <div class="col-title-wrap">
+                <span class="col-dot bg-green"></span>
+                <span class="col-name">4. Closed Won (+TP)</span>
+              </div>
+              <span class="col-count" id="count-won">1</span>
+            </div>
+            <div class="column-cards" id="cards-won" ondragover="allowDrop(event)" ondrop="handleDrop(event, 'won')">
+              <!-- Cards injected via JS -->
+            </div>
+          </div>
+
+          <!-- Col 5: Perdu (Lost) -->
+          <div class="kanban-column" id="col-lost">
+            <div class="column-header">
+              <div class="col-title-wrap">
+                <span class="col-dot bg-red"></span>
+                <span class="col-name">5. Closed Lost (-SL Débrief)</span>
+              </div>
+              <span class="col-count" id="count-lost">0</span>
+            </div>
+            <div class="column-cards" id="cards-lost" ondragover="allowDrop(event)" ondrop="handleDrop(event, 'lost')">
+              <!-- Cards injected via JS -->
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- TAB: CERTIFICAT & BILAN -->
+      <section id="tab-certificate" class="content-tab">
+        <div class="tab-header">
+          <div>
+            <div class="breadcrumb">Académie CRM / Bilan Final</div>
+            <h1 class="page-title">Certificat & Bilan de Compétences du Trader</h1>
+            <p class="page-desc">Consultez l'état de validation de vos 5 modules et imprimez votre attestation de compétence.</p>
+          </div>
+          <button class="btn btn-sm btn-primary" onclick="window.print()">
+            <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 6 2 18 2 18 9"></polyline><path d="M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2"></path><rect x="6" y="14" width="12" height="8"></rect></svg>
+            Imprimer l'Attestation
+          </button>
+        </div>
+
+        <div class="grid-2-col">
+          <!-- Diplôme interactif -->
+          <div class="card cert-frame">
+            <div class="cert-inner">
+              <div class="cert-seal">
+                <svg viewBox="0 0 24 24" width="36" height="36" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="8" r="7"></circle><polyline points="8.21 13.89 7 23 12 20 17 23 15.79 13.88"></polyline></svg>
+              </div>
+              <h2 class="cert-title">ATTESTATION D'APTITUDE AU TRADING INSTITUTIONNEL</h2>
+              <p class="cert-sub">Délivrée par le système TradeFlow CRM Academy</p>
+              
+              <div class="cert-name" id="cert-user-name">TRADER INSTITUTIONNEL CANDIDAT</div>
+              <p class="cert-body">
+                A validé les modules de qualification de deals, de gestion rigoureuse du risque au pip près, de lecture du carnet d'ordres, d'analyse macroéconomique et de discipline psychologique.
+              </p>
+
+              <div class="cert-metrics-row">
+                <div>
+                  <span>Score Académique :</span>
+                  <strong id="cert-score-total">100%</strong>
+                </div>
+                <div>
+                  <span>Discipline Audité :</span>
+                  <strong id="cert-score-discipline">98%</strong>
+                </div>
+                <div>
+                  <span>Date d'Attribution :</span>
+                  <strong id="cert-date">21 Novembre 2026</strong>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Bilan détaillé par compétences -->
+          <div class="card">
+            <div class="card-header">
+              <h3 class="card-title">Audit des 5 Spécificités du Trading</h3>
+            </div>
+            <div class="card-body">
+              <div class="audit-item" id="audit-item-1">
+                <div class="audit-status">○</div>
+                <div class="audit-content">
+                  <strong>1. Analyse Technique & Deal Screening</strong>
+                  <span class="text-xs text-muted">Capacité à repérer des breakouts avec R:R supérieur à 1:2.</span>
+                </div>
+                <div class="audit-score" id="audit-score-1">Non validé</div>
+              </div>
+
+              <div class="audit-item" id="audit-item-2">
+                <div class="audit-status">○</div>
+                <div class="audit-content">
+                  <strong>2. Gestion du Risque & Dimensionnement</strong>
+                  <span class="text-xs text-muted">Calcul systématique du lot selon la formule mathématique des 1%.</span>
+                </div>
+                <div class="audit-score" id="audit-score-2">Non validé</div>
+              </div>
+
+              <div class="audit-item" id="audit-item-3">
+                <div class="audit-status">○</div>
+                <div class="audit-content">
+                  <strong>3. Microstructure & Carnet d'Ordres (DOM)</strong>
+                  <span class="text-xs text-muted">Compréhension des ordres limites, market et slippage.</span>
+                </div>
+                <div class="audit-score" id="audit-score-3">Non validé</div>
+              </div>
+
+              <div class="audit-item" id="audit-item-4">
+                <div class="audit-status">○</div>
+                <div class="audit-content">
+                  <strong>4. Macro Intelligence & News Flash</strong>
+                  <span class="text-xs text-muted">Interprétation de l'écart consensus/réel sur les annonces NFP.</span>
+                </div>
+                <div class="audit-score" id="audit-score-4">Non validé</div>
+              </div>
+
+              <div class="audit-item" id="audit-item-5">
+                <div class="audit-status">○</div>
+                <div class="audit-content">
+                  <strong>5. Psychologie & Audit des Biais</strong>
+                  <span class="text-xs text-muted">Résistance prouvée au revenge trading et au FOMO.</span>
+                </div>
+                <div class="audit-score" id="audit-score-5">Non validé</div>
+              </div>
+
+              <div class="mt-4 pt-3 border-t">
+                <button class="btn btn-block btn-success" onclick="validateAllModulesDebug()">
+                  🧪 Valider tous les modules pour tester le certificat
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+    </main>
+  </div>
+
+  <!-- MODAL: NOUVEAU TRADE CRM -->
+  <div class="modal-backdrop hidden" id="modal-new-deal">
+    <div class="modal-card">
+      <div class="modal-header">
+        <h3 class="modal-title">Créer un Nouveau Deal dans le Pipeline</h3>
+        <button class="modal-close" onclick="closeNewDealModal()">&times;</button>
+      </div>
+      <div class="modal-body">
+        <form id="form-new-deal" onsubmit="handleCreateDeal(event)">
+          <div class="form-row">
+            <div class="form-group flex-1">
+              <label>Actif Financier (Ticker)</label>
+              <input type="text" id="deal-asset" required placeholder="ex: EUR/USD, BTC, US500" value="GBP/USD">
+            </div>
+            <div class="form-group flex-1">
+              <label>Sens de la Position</label>
+              <select id="deal-direction">
+                <option value="ACHAT (LONG)">🟢 Achat (Long)</option>
+                <option value="VENTE (SHORT)">🔴 Vente (Short)</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="form-row">
+            <div class="form-group flex-1">
+              <label>Prix d'Entrée ($)</label>
+              <input type="number" step="0.0001" id="deal-entry" required value="1.2650">
+            </div>
+            <div class="form-group flex-1">
+              <label>Prix du Stop Loss ($)</label>
+              <input type="number" step="0.0001" id="deal-sl" required value="1.2610">
+            </div>
+            <div class="form-group flex-1">
+              <label>Prix du Take Profit ($)</label>
+              <input type="number" step="0.0001" id="deal-tp" required value="1.2770">
+            </div>
+          </div>
+
+          <div class="form-row">
+            <div class="form-group flex-1">
+              <label>Setup / Justification Technique</label>
+              <input type="text" id="deal-setup" required placeholder="ex: Retest support 4H + Marteau de rejet" value="Retest support 4H + Divergence RSI">
+            </div>
+            <div class="form-group flex-1">
+              <label>Colonne Initiale du Pipeline</label>
+              <select id="deal-column">
+                <option value="prospect">1. Détection & Idée</option>
+                <option value="qualified">2. Plan & Risque Validé</option>
+                <option value="active">3. Position Active (Live)</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label>Checklist de Discipline CRM (Obligatoire)</label>
+            <div class="checkbox-group">
+              <label><input type="checkbox" id="chk-risk" required checked> Risque strictement limité à 1% du capital</label>
+              <label><input type="checkbox" id="chk-rr" required checked> Ratio Risque/Rendement supérieur ou égal à 1:2</label>
+              <label><input type="checkbox" id="chk-macro" required checked> Aucune annonce NFP/FOMC majeure dans les 15 minutes</label>
+            </div>
+          </div>
+
+          <div class="modal-footer">
+            <button type="button" class="btn btn-ghost" onclick="closeNewDealModal()">Annuler</button>
+            <button type="submit" class="btn btn-primary">Enregistrer dans le Pipeline</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+
+  <script src="app.js"></script>
+</body>
+</html>
