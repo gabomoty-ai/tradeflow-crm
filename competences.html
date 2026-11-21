@@ -1,0 +1,265 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>MasterTrade 100% · Validation des Compétences du Trading Pro</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="competences.css">
+</head>
+<body>
+
+  <!-- Confetti Canvas for 100% Celebration -->
+  <canvas id="confetti-canvas"></canvas>
+
+  <!-- Top Navigation Header -->
+  <header class="app-header">
+    <div class="header-left">
+      <div class="app-brand">
+        <div class="brand-badge">
+          <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"></path></svg>
+        </div>
+        <div class="brand-text">
+          <span class="brand-name">MasterTrade <span class="text-accent">100%</span></span>
+          <span class="brand-sub">Matrice d'Évaluation & Certification Trading</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Center Quick Stats -->
+    <div class="header-center">
+      <div class="mastery-summary-pill">
+        <div class="gauge-compact">
+          <svg viewBox="0 0 36 36" class="circular-chart">
+            <path class="circle-bg" d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831" />
+            <path id="header-circle-fill" class="circle" stroke-dasharray="0, 100" d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831" />
+          </svg>
+          <span id="header-percent-text" class="gauge-percent">0%</span>
+        </div>
+        <div class="mastery-pill-info">
+          <span class="pill-label">MAÎTRISE GLOBALE</span>
+          <strong id="header-competencies-text">0 / 21 validées</strong>
+        </div>
+      </div>
+
+      <div class="rank-badge-box">
+        <span class="rank-title">STATUT APPRENANT</span>
+        <span id="current-rank-label" class="rank-tag rank-novice">Niv. 1 · Novice</span>
+      </div>
+    </div>
+
+    <div class="header-right">
+      <a href="index.html" class="btn-icon" style="text-decoration:none;" title="Retour au CRM">
+        <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>
+        <span>Pipeline CRM</span>
+      </a>
+
+      <button id="btn-sound-toggle" class="btn-icon" title="Activer / Désactiver le son">
+        <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"></polygon><path d="M19.07 4.93a10 10 0 0 1 0 14.14M15.54 8.46a5 5 0 0 1 0 7.07"></path></svg>
+        <span id="sound-label">Audio FX</span>
+      </button>
+
+      <button id="btn-reset-progress" class="btn-ghost" title="Réinitialiser la progression">
+        <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2"><path d="M2.5 2v6h6M21.5 22v-6h-6"></path><path d="M22 11.5A10 10 0 0 0 3.2 7.2M2 12.5a10 10 0 0 0 18.8 4.3"></path></svg>
+        <span>Reset</span>
+      </button>
+
+      <button id="btn-view-certificate" class="btn-primary">
+        <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="8" r="7"></circle><polyline points="8.21 13.89 7 23 12 20 17 23 15.79 13.88"></polyline></svg>
+        <span>Mon Certificat</span>
+      </button>
+    </div>
+  </header>
+
+  <!-- Main App Layout -->
+  <div class="layout-container">
+    
+    <!-- Hero / Progress Banner -->
+    <section class="hero-banner">
+      <div class="hero-content">
+        <div class="hero-left">
+          <span class="hero-kicker">🎯 PROGRAMME DE VALIDATION INTÉGRALE</span>
+          <h1 class="hero-title">Atteignez 100% sur les 7 Aspects du Trading Pro</h1>
+          <p class="hero-desc">Chaque compétence dispose de sa règle d'or théorique et de son cas pratique interactif à réussir. Validez les 21 étapes pour débloquer votre Certification Pro Trader.</p>
+        </div>
+
+        <div class="hero-gauge-card">
+          <div class="gauge-large-container">
+            <svg viewBox="0 0 120 120" class="gauge-large-svg">
+              <circle class="gauge-bg" cx="60" cy="60" r="50" />
+              <circle id="gauge-fill-lg" class="gauge-fill" cx="60" cy="60" r="50" stroke-dasharray="0 314.16" />
+            </svg>
+            <div class="gauge-large-text">
+              <span id="gauge-large-percent">0%</span>
+              <small>OBJECTIF 100%</small>
+            </div>
+          </div>
+          <div class="gauge-meta">
+            <div class="meta-row">
+              <span>Compétences :</span>
+              <strong id="meta-completed-count">0 / 21</strong>
+            </div>
+            <div class="meta-row">
+              <span>Points d'XP :</span>
+              <strong id="meta-xp-total">0 XP</strong>
+            </div>
+            <div class="meta-row">
+              <span>Aspects Maîtrisés :</span>
+              <strong id="meta-aspects-mastered">0 / 7</strong>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Linear Global Progress Bar -->
+      <div class="global-progress-track">
+        <div class="global-progress-bar" id="global-progress-bar" style="width: 0%;"></div>
+      </div>
+    </section>
+
+    <!-- Aspects Navigation Filters (Sticky Bar) -->
+    <nav class="aspects-filter-bar">
+      <div class="filter-scroll">
+        <button class="filter-btn active" data-filter="all">
+          <span>Vue d'ensemble 360°</span>
+          <span class="filter-badge" id="badge-all">0%</span>
+        </button>
+        <button class="filter-btn" data-filter="pillar-1">
+          <span class="dot-pillar dot-p1"></span>
+          <span>1. Fondations & Ordres</span>
+          <span class="filter-badge" id="badge-p1">0%</span>
+        </button>
+        <button class="filter-btn" data-filter="pillar-2">
+          <span class="dot-pillar dot-p2"></span>
+          <span>2. Analyse Technique</span>
+          <span class="filter-badge" id="badge-p2">0%</span>
+        </button>
+        <button class="filter-btn" data-filter="pillar-3">
+          <span class="dot-pillar dot-p3"></span>
+          <span>3. Gestion du Risque</span>
+          <span class="filter-badge" id="badge-p3">0%</span>
+        </button>
+        <button class="filter-btn" data-filter="pillar-4">
+          <span class="dot-pillar dot-p4"></span>
+          <span>4. Liquidité & DOM</span>
+          <span class="filter-badge" id="badge-p4">0%</span>
+        </button>
+        <button class="filter-btn" data-filter="pillar-5">
+          <span class="dot-pillar dot-p5"></span>
+          <span>5. Macroéconomie</span>
+          <span class="filter-badge" id="badge-p5">0%</span>
+        </button>
+        <button class="filter-btn" data-filter="pillar-6">
+          <span class="dot-pillar dot-p6"></span>
+          <span>6. Psychologie & Discipline</span>
+          <span class="filter-badge" id="badge-p6">0%</span>
+        </button>
+        <button class="filter-btn" data-filter="pillar-7">
+          <span class="dot-pillar dot-p7"></span>
+          <span>7. Système & Exécution CRM</span>
+          <span class="filter-badge" id="badge-p7">0%</span>
+        </button>
+      </div>
+    </nav>
+
+    <!-- 7 PILLARS LIST CONTAINER -->
+    <main class="pillars-container" id="pillars-container">
+      <!-- Dynamic content generated by JavaScript -->
+    </main>
+
+    <!-- CERTIFICATION MODAL / SECTION -->
+    <section id="certificate-modal" class="certificate-modal-overlay">
+      <div class="certificate-modal-content">
+        <div class="modal-header">
+          <div class="modal-title-box">
+            <svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="8" r="7"></circle><polyline points="8.21 13.89 7 23 12 20 17 23 15.79 13.88"></polyline></svg>
+            <h2>Attestation Officielle de Compétence 100%</h2>
+          </div>
+          <button id="btn-close-cert" class="btn-icon">✕</button>
+        </div>
+
+        <div class="certificate-preview-card" id="printable-certificate">
+          <div class="cert-watermark">MASTERTRADE</div>
+          <div class="cert-border-inner">
+            <div class="cert-header">
+              <div class="cert-crest">
+                <svg viewBox="0 0 24 24" width="36" height="36" fill="none" stroke="#00d2ff" stroke-width="2.2"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon></svg>
+              </div>
+              <div class="cert-titles">
+                <h3>CERTIFICAT D'APTITUDE TECHNIQUE & OPÉRATIONNELLE</h3>
+                <p>ACADÉMIE PROFESSIONNELLE DE TRADING & GESTION DU RISQUE</p>
+              </div>
+              <div class="cert-seal-badge">
+                <span>VALIDATION</span>
+                <strong>100%</strong>
+              </div>
+            </div>
+
+            <div class="cert-body">
+              <p class="cert-statement">Il est certifié par la présente que l'opérateur financier :</p>
+              <div class="student-name-input-wrapper">
+                <input type="text" id="cert-student-name" class="cert-name-input" value="Adam M." placeholder="Entrez votre nom et prénom">
+              </div>
+              <p class="cert-desc">a validé avec succès l'intégralité des <strong>21 compétences critiques réparties sur les 7 aspects fondamentaux</strong> du trading institutionnel et de la gestion de capitaux sur les marchés financiers internationaux.</p>
+            </div>
+
+            <!-- Pillars Seals Grid -->
+            <div class="cert-pillars-grid">
+              <div class="cert-pillar-tag">✓ 1. Fondations & Ordres (100%)</div>
+              <div class="cert-pillar-tag">✓ 2. Analyse Technique (100%)</div>
+              <div class="cert-pillar-tag">✓ 3. Gestion du Risque (100%)</div>
+              <div class="cert-pillar-tag">✓ 4. Liquidité & DOM (100%)</div>
+              <div class="cert-pillar-tag">✓ 5. Macroéconomie (100%)</div>
+              <div class="cert-pillar-tag">✓ 6. Psychologie & Biais (100%)</div>
+              <div class="cert-pillar-tag">✓ 7. Système CRM (100%)</div>
+            </div>
+
+            <div class="cert-footer">
+              <div class="cert-meta-item">
+                <span class="meta-label">Date d'accréditation</span>
+                <strong id="cert-issue-date">22 Novembre 2026</strong>
+              </div>
+              <div class="cert-meta-item">
+                <span class="meta-label">Identifiant d'authentification</span>
+                <strong id="cert-auth-id" class="text-mono">TRD-100-8849-ADAM</strong>
+              </div>
+              <div class="cert-signature-box">
+                <div class="signature-line"></div>
+                <span>Le Comité d'Audit CRM</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="modal-actions">
+          <div class="cert-status-info" id="cert-modal-status-msg">
+            Complétez les 21 compétences pour déverrouiller le sceau doré officiel !
+          </div>
+          <div class="action-buttons">
+            <button id="btn-print-certificate" class="btn-primary" disabled>
+              <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 6 2 18 2 18 9"></polyline><path d="M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2"></path><rect x="6" y="14" width="12" height="8"></rect></svg>
+              <span>Imprimer mon Diplôme (PDF)</span>
+            </button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+  </div>
+
+  <footer class="app-footer">
+    <div class="footer-inner">
+      <div class="footer-left">
+        <strong>MasterTrade 100%</strong> · Système d'évaluation continue pour traders sérieux.
+      </div>
+      <div class="footer-right">
+        <span>Pratique sécurisée en environnement simulé (Zero Capital Risk).</span>
+      </div>
+    </div>
+  </footer>
+
+  <script src="competences.js"></script>
+</body>
+</html>
